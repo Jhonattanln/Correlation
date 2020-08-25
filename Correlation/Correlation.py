@@ -4,7 +4,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 ##Import the data 
-df = pd.read_excel(r'C:\Users\Jhona\OneDrive\Área de Trabalho\PRBR11.xlsx', index_col=0)
+df = pd.read_excel(r'C:\Users\Jhona\OneDrive\Área de Trabalho\PRBR11.xlsx', index_col=0, parse_dates=['Data'])
 
 ##Create returns
 returns = pd.DataFrame()
@@ -14,3 +14,15 @@ for i in df:
 weights = [0.0479, 0.3773, 0.5092, 0.657, 0.0, 0.0]
 returns['PRBR11'] = returns.dot(weights)
 
+cumulative_returns = pd.DataFrame()
+for i in returns:
+    cumulative_returns[i] = ((1+returns[i]).cumprod()-1)*100
+
+
+plt.style.use('ggplot')
+fig, ax = plt.subplots()
+ax.plot(cumulative_returns.index, cumulative_returns)
+ax.set_xlabel('Data')
+ax.set_ylabel('Retornos')
+plt.legend(['CPLE6', 'SAPR11', 'KLBN11', 'RAIL3', 'POSI3', 'BTTL3', 'PRBR11'])
+plt.show()
