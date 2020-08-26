@@ -46,3 +46,9 @@ ax.set_xlabel('Data')
 ax.set_ylabel('Correlação')
 plt.legend(['CPLE6', 'SAPR11', 'KLBN11', 'RAIL3', 'POSI3', 'BTTL3', 'PRBR11'])
 plt.show()
+
+def vol (x):
+    vol = np.std(returns[x])*252**0.5
+    return vol*100
+
+vol('PRBR11')
